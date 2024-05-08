@@ -16,7 +16,7 @@ conn_dict = {
 
 def order_history(customers_email = None, customer_telephone = None,):
     # Initialize a database access object.
-    p1=pgdao(conn_dict)
+    p1 = pgdao(conn_dict)
 
     # SQL query to retrieve order details based on either customer email or telephone.
     order_query = """
@@ -63,13 +63,13 @@ def order_history(customers_email = None, customer_telephone = None,):
         result = p1.query(order_query + customers_phone_clause, {'customer_phone' : customer_telephone})
     
     # Returning a dictionary containing the query results and a success code.
-    return {'result' : result.to_dict(orient='index'),
+    return {'result' : result.to_dict(orient = 'index'),
             'success_code' : 1}
 
-def get_orders_by_billing_zip_codes(ascending=False):
+def get_orders_by_billing_zip_codes(ascending = False):
 
     # Initialize a database access object and perform query.
-    p1=pgdao(conn_dict)
+    p1 = pgdao(conn_dict)
 
     order_query = """
                     SELECT 
@@ -87,13 +87,13 @@ def get_orders_by_billing_zip_codes(ascending=False):
     result = p1.query(order_query)
     
     # Sort and convert result to dictionary.
-    return {'result' : list(result.sort_values(by='ORDER_COUNT', ascending=ascending).to_dict(orient='index').values()),
+    return {'result' : list(result.sort_values(by = 'ORDER_COUNT', ascending = ascending).to_dict(orient = 'index').values()),
            'success_code': 1}
 
-def get_orders_by_shipping_zip_codes(ascending=False):
+def get_orders_by_shipping_zip_codes(ascending = False):
     
     # Similar to billing, this function retrieves and sorts orders by shipping zip code.
-    p1=pgdao(conn_dict)
+    p1 = pgdao(conn_dict)
 
     order_query = """
                     SELECT 
@@ -110,14 +110,14 @@ def get_orders_by_shipping_zip_codes(ascending=False):
     """
     
     result = p1.query(order_query)
-    return {'result' : list(result.sort_values(by='ORDER_COUNT', ascending=ascending).to_dict(orient='index').values()),
+    return {'result' : list(result.sort_values(by = 'ORDER_COUNT', ascending = ascending).to_dict(orient = 'index').values()),
            'success_code': 1}
 
 
 def get_hour_most_purchases():
     
     # Query to find the hour with the most purchases.
-    p1=pgdao(conn_dict)
+    p1 = pgdao(conn_dict)
 
     order_query = """
                     SELECT 
@@ -132,8 +132,8 @@ def get_hour_most_purchases():
     # Convert ORDER_DATE to datetime and extract the hour, then group by hour and count orders.
     result['ORDER_DATE'] = pd.to_datetime(result['ORDER_DATE'])
     result['ORDER_HOUR'] = result['ORDER_DATE'].dt.hour
-    result_gb = result.groupby('ORDER_HOUR', as_index=False)['ORDER_ID'].count()
-    result_gb = result_gb.sort_values('ORDER_ID', ascending=False)
+    result_gb = result.groupby('ORDER_HOUR', as_index = False)['ORDER_ID'].count()
+    result_gb = result_gb.sort_values('ORDER_ID', ascending = False)
     # Return the hour with the highest number of purchases.
     return {'result' : str(result_gb.iloc[0,0]),
            'success_code' : 1}

@@ -6,10 +6,10 @@ from utils import *
 # Initialize Flask application
 app = Flask(__name__)
 app.debug = True # Set to True for debugging during development, false in production
-port=6003  # Port where the Flask app will run
+port = 6005  # Port where the Flask app will run
  
  
-@app.route('/orderHistory', methods=['POST'])
+@app.route('/orderHistory', methods = ['POST'])
 def get_order_history():
     """
     Route to retrieve order history based on customer email or telephone.
@@ -19,17 +19,17 @@ def get_order_history():
     type = request.form["type"]
 
     # Call order_history from utils based on the input type
-    if type=="telephone":
-        resp=order_history(customers_email = None, customer_telephone = data)
-    elif type=="email":
-        resp=order_history(customers_email = data, customer_telephone = None)
+    if type == "telephone":
+        resp = order_history(customers_email = None, customer_telephone = data)
+    elif type == "email":
+        resp = order_history(customers_email = data, customer_telephone = None)
     else:
         # Return error response for bad request
         return make_response(jsonify({"Error":"Bad Request"}), 400)
     
     return make_response(jsonify(resp), 200)
  
-@app.route('/ordersByBilling', methods=['POST'])
+@app.route('/ordersByBilling', methods = ['POST'])
 def get_orders_by_billing():
     """
     Route to fetch orders sorted by billing zip codes.
@@ -48,14 +48,14 @@ def get_orders_by_billing():
     
     return make_response(jsonify(resp), 200)
 
-@app.route('/ordersByShipping', methods=['POST'])
+@app.route('/ordersByShipping', methods = ['POST'])
 def get_orders_by_shipping():
     """
     Route to fetch orders sorted by shipping zip codes.
     Expects a POST request with 'data' field that should be either 'True' or 'False' indicating ascending order.
     """
     value = request.form["data"]
-
+    
     if value == 'True' :
         resp = get_orders_by_shipping_zip_codes(True)
     elif value == 'False':
@@ -65,7 +65,7 @@ def get_orders_by_shipping():
     
     return make_response(jsonify(resp), 200)
 
-@app.route('/peakHour', methods=['POST'])
+@app.route('/peakHour', methods = ['POST'])
 def get_peak_hour():
     """
     Route to find the hour of the day with the most purchases.
@@ -76,4 +76,4 @@ def get_peak_hour():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port = port)

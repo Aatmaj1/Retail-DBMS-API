@@ -49,39 +49,39 @@ def reformat_response(response_json):
 # Define a test case to check the API response for invalid input
 def test_api_order_history_invalid_response():
     
-    url = "http://127.0.0.1:6003/orderHistory"
+    url = "http://127.0.0.1:6008/orderHistory"
 
     # Set up the data payload and headers for the HTTP request.
     payload = {'data': 'john.a@google.com',
     'type': 'telephone'}
-    files=[]
+    files = []
     headers = {}
 
     # Send a POST request and assert the status code.
-    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    response = requests.request("POST", url, headers = headers, data = payload, files = files)
     assert response.status_code == 500, "Checking Invalid Status"
     
 # Define a test case to check the API response for a valid email-based query.    
 def test_api_order_history_email_response():
     
-    url = "http://127.0.0.1:6003/orderHistory"
+    url = "http://127.0.0.1:6008/orderHistory"
 
     # Set up the data payload for the request.
     payload = {'data': 'john.doe@google.com',
     'type': 'email'}
-    files=[]
+    files = []
     headers = {}
 
     # Send a POST request and verify the response.
-    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    response = requests.request("POST", url, headers = headers, data = payload, files = files)
     assert response.status_code == 200, "API did not return a successful response"
 
     # Parse the JSON response and reformat it.
     response_json = response.json()['result']
     reformatted_response = reformat_response(response_json)
-
+    
     # Load the expected JSON data from a file and compare it.
-    with open('test_result/email_test.json', 'r') as file:
+    with open('test-flask-API/test_result/email_test.json', 'r') as file:
         expected_json = json.load(file)
     
     # Compare the expected JSON to the response JSON
@@ -90,17 +90,16 @@ def test_api_order_history_email_response():
 
 def test_api_order_history_phone_response():
     
-    url = "http://127.0.0.1:6003/orderHistory"
+    url = "http://127.0.0.1:6008/orderHistory"
 
     # Set up the data payload for the request.
-    payload = payload = {'data': '8378139380',
+    payload = {'data': '8378139380',
     'type': 'telephone'}
-    files=[
-    ]
+    files=[]
     headers = {}
 
     # Send a POST request and verify the response.
-    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    response = requests.request("POST", url, headers = headers, data = payload, files = files)
     assert response.status_code == 200, "API did not return a successful response"
 
     # Parse the JSON response and reformat it.
@@ -108,7 +107,7 @@ def test_api_order_history_phone_response():
     reformatted_response = reformat_response(response_json)
 
     # Load the expected JSON data from a file and compare it.
-    with open("test_result/telephone_test.json", 'r') as file:
+    with open("test-flask-API/test_result/telephone_test.json", 'r') as file:
         expected_json = json.load(file)
     
     # Compare the expected JSON to the response JSON
@@ -116,23 +115,22 @@ def test_api_order_history_phone_response():
 
 def test_api_order_billing_response():
 
-    url = "http://127.0.0.1:6003/ordersByBilling"
+    url = "http://127.0.0.1:6008/ordersByBilling"
 
     # Set up the data payload for the request.
     payload = {'data': 'False'}
-    files=[
-    ]
+    files = []
     headers = {}
 
     # Send a POST request and verify the response.
-    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    response = requests.request("POST", url, headers = headers, data = payload, files = files)
     assert response.status_code == 200
 
     # Parse the JSON response and reformat it.
     response_json = response.json()['result']
 
     # Load the expected JSON data from a file and compare it.
-    with open('test_result/list_orders_by_billing_zip_codes_test.json', 'r') as file:
+    with open('test-flask-API/test_result/list_orders_by_billing_zip_codes_test.json', 'r') as file:
         expected_json = json.load(file)
 
     # Compare the expected JSON to the response JSON
@@ -140,23 +138,22 @@ def test_api_order_billing_response():
 
 def test_api_order_shipping_response():
 
-    url = "http://127.0.0.1:6003/ordersByShipping"
+    url = "http://127.0.0.1:6008/ordersByShipping"
 
     # Set up the data payload for the request.
     payload = {'data': 'False'}
-    files=[
-    ]
+    files = []
     headers = {}
 
     # Send a POST request and verify the response.
-    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    response = requests.request("POST", url, headers = headers, data = payload, files = files)
     assert response.status_code == 200
 
     # Parse the JSON response and reformat it.
     response_json = response.json()['result']
 
     # Load the expected JSON data from a file and compare it.
-    with open('test_result/orders_by_shipping_zip_codes.json', 'r') as file:
+    with open('test-flask-API/test_result/orders_by_shipping_zip_codes.json', 'r') as file:
         expected_json = json.load(file)
 
     # Compare the expected JSON to the response JSON
@@ -164,22 +161,22 @@ def test_api_order_shipping_response():
 
 def test_api_peakHour_response():
 
-    url = "http://127.0.0.1:6003/peakHour"
+    url = "http://127.0.0.1:6008/peakHour"
 
     # Set up the data payload for the request
     payload = {}
-    files=[]
+    files = []
     headers = {}
 
     # Send a POST request and verify the response.
-    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    response = requests.request("POST", url, headers = headers, data = payload, files = files)
     assert response.status_code == 200
 
     # Parse the JSON response and reformat it.
     response_json = response.json()['result']
 
     # Load the expected JSON data from a file and compare it.
-    with open('test_result/orders_by_shipping_zip_codes.json', 'r') as file:
+    with open('test-flask-API/test_result/orders_by_shipping_zip_codes.json', 'r') as file:
         expected_json = json.load(file)
 
     # Compare the expected JSON to the response JSON
