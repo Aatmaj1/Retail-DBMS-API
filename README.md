@@ -78,7 +78,7 @@ ascending.
   pytest test-flask-API/test_api.py
   ```
 ## Example API Functionalities
-- Here is an example of a JSON response from the orderHistory API:
+- Here is an example of a JSON response from the API calls:
   * Given a customer’s email or telephone, provide an order history functionality -> API call : http://127.0.0.1:6008/orderHistory?data=8378139380&type=telephone
 ``` json
 {
