@@ -1,3 +1,3 @@
 ## Conceptual Diagram
 
-![Alt text](images/conceptual_diag.JPG)
+![Alt text](Retail-DBMS-API/images/conceptual_diag.JPG)
