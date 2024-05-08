@@ -188,7 +188,15 @@ ascending.
 }
 ```
 
+## Deploy Flask App :
 
+We can deploy our Flask app on Amazon EC2 using Docker image of app. The following are simple steps you can take to deploy the app:
+- First, create a Docker image of your Flask app
+- Next, launch an EC2 instance, choosing an appropriate AMI and setting security groups to allow HTTP traffic
+- Install Docker on the EC2 instance via SSH.
+- Transfer the Docker image directly from your local machine to the EC2 instance
+- Load and Run Docker Image on EC2
+- Finally, access your application by navigating to the public IP address of your EC2 instance in a browser
 
 
 
